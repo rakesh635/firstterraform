@@ -16,13 +16,13 @@ resource "aws_instance" "tf_ec2_1" {
 		encrypted = "true"
 	}
 	tags = {
-		name = "tf_ec2_1"
+		Name = "tf_ec2_1"
 		createdby = "terraform"
 	}
 }
 
 resource "aws_security_group" "tf_allow_ssh" {
-	name        = "allow_ssh"
+	name        = "tf_allow_ssh"
 	description = "Allow SSH inbound traffic from my working machine"
 	vpc_id      = "vpc-05be22f7ef63afaa7"
 
@@ -42,7 +42,7 @@ resource "aws_security_group" "tf_allow_ssh" {
 	}
 
 	tags = {
-		name = "allow_ssh"
+		Name = "tf_allow_ssh"
 		createdby = "terraform"
 	}
 }
