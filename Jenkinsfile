@@ -31,7 +31,7 @@ pipeline {
     stage('Terraform Policy Check') {
       steps {
         sh 'terraform show -json tf.plan  > tf.json '
-        sh 'checkov -f tf.json'
+        sh '/home/ubuntu/.local/bin/checkov -f tf.json'
       }
     }
     stage('Terraform Apply') {
