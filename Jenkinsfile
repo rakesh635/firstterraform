@@ -13,9 +13,25 @@ pipeline {
         sh 'terraform init'
       }
     }
+    stage('Terraform format') {
+      steps {
+        sh 'terraform fmt'
+      }
+    }
+    stage('Terraform validate') {
+      steps {
+        sh 'terraform validate'
+      }
+    }
     stage('Terraform Plan') {
       steps {
-        sh 'terraform plan'
+        sh 'terraform plan -out tf.plan'
+      }
+    }
+    stage('Terraform Policy Check') {
+      steps {
+        sh 'terraform show -json tf.plan  > tf.json '
+        sh 'checkov -f tf.json'
       }
     }
     stage('Terraform Apply') {
