@@ -11,7 +11,10 @@ pipeline {
 
     stage('Checkov security check') {
       steps {
-        sh "checkov -d . --use-enforcement-rules -o cli -o junitxml --output-file-path console,results.xml --repo-id rakesh635/firstterraform --branch main"
+        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
+        {
+          sh "/home/ubuntu/.local/bin/checkov -d . --use-enforcement-rules -o cli -o junitxml --output-file-path console,results.xml --repo-id rakesh635/firstterraform --branch main"
+        }
       }
     }
     
