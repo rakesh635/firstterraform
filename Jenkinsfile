@@ -8,6 +8,13 @@ pipeline {
     git 'Gittool' 
   }
   stages {
+
+    stage('Checkov security check') {
+      steps {
+        sh "checkov -d . --use-enforcement-rules -o cli -o junitxml --output-file-path console,results.xml --repo-id rakesh635/firstterraform --branch main"
+      }
+    }
+    
     stage('Terraform Init') {
       steps {
         sh 'terraform init'
@@ -28,7 +35,7 @@ pipeline {
         sh 'terraform plan -out tf.plan'
       }
     }
-    stage('Terraform Policy Check') {
+    stage('Terraform Plan Policy Check') {
       steps {
         sh 'terraform show -json tf.plan  > tf.json '
         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
