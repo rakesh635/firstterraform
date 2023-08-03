@@ -20,7 +20,6 @@ pipeline {
     
     stage('Terraform Init') {
       steps {
-        junit skipPublishingChecks: true, testResults: 'results.xml'
         sh 'terraform init'
       }
     }
@@ -52,6 +51,11 @@ pipeline {
       steps {
         sh 'terraform apply -auto-approve'
       }
+    }
+  }
+  post {
+    always {
+      junit skipPublishingChecks: true, testResults: 'results.xml'
     }
   }
 }
