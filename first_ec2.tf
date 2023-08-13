@@ -11,7 +11,7 @@ resource "aws_instance" "tf_ec2_1" {
 	associate_public_ip_address = "true"
 	ebs_block_device {
 		device_name = "/dev/sda1"
-		volume_size = 30
+		volume_size = 60
 		delete_on_termination = "true"
 		encrypted = "true"
 	}
